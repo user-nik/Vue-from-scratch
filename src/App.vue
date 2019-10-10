@@ -2,11 +2,7 @@
  <!-- App.vue -->
 
 <v-app>
-  <v-navigation-drawer 
-    app 
-    temporary
-    v-model="drawer"
-    >
+  <v-navigation-drawer app temporary v-model="drawer"    >
     <v-list>
       <v-list-item
         v-for="link of links"
@@ -16,7 +12,6 @@
         <v-list-item-icon>
           <v-icon >{{link.icon}}</v-icon>
         </v-list-item-icon>
-
         <v-list-item-content>
           <v-list-item-title v-text="link.title"></v-list-item-title>
         </v-list-item-content>
@@ -35,8 +30,7 @@
       <div class="flex-grow-1"></div>
 
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn 
-          v-for="link in links"
+        <v-btn v-for="link in links"
           :key="link.title"
           :to="link.url"
           text><v-icon left>{{link.icon}}</v-icon>{{link.title}}</v-btn>
@@ -46,9 +40,6 @@
 
   <!-- Sizes your content based upon application components -->
   <v-content>
-
-
-
       <!-- If using vue-router -->
       <router-view></router-view>
 
@@ -64,11 +55,11 @@ export default {
     return {
       drawer: false,
       links: [
-        {title:'Login', icon: 'mdi-lock', url:'/login'},
-        {title:'Registration', icon: 'mdi-face', url:'/registration'},
-        {title:'Orders', icon: 'mdi-bookmark', url:'/orders'},
-        {title:'New ad', icon: 'mdi-note', url:'/new'},
-        {title:'My ads', icon: 'mdi-clipboard', url:'/list'},
+        { title: 'Login', icon: 'mdi-lock', url: '/login' },
+        { title: 'Registration', icon: 'mdi-face', url: '/registration' },
+        { title: 'Orders', icon: 'mdi-bookmark', url: '/orders' },
+        { title: 'New ad', icon: 'mdi-note', url: '/new' },
+        { title: 'My ads', icon: 'mdi-clipboard', url: '/list' }
       ]
     }
   }
