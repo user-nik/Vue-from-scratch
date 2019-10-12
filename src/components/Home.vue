@@ -1,23 +1,114 @@
 <template>
-  <v-container>
+<div class="">
+  <v-container fluid>
       <v-layout row>
           <v-flex xs12>
-              <h1>Home</h1>
+              
+<v-carousel>
+    <v-carousel-item
+     
+      
+      reverse-transition="fade-transition"
+      transition="fade-transition"
+      v-for="ad in ads"
+      :key="ad.id"
+      :src="ad.imageSrc"
+    >
+    <div class="car-link">
+        <v-btn class="error" :to="'/ad/'+ad.id">{{ad.title}}</v-btn>
+    </div>
+    </v-carousel-item>
+  </v-carousel>
           </v-flex>
       </v-layout>
   </v-container>
+
+  <v-container grid>
+      <v-layout row>
+          <v-flex md4
+          v-for="ad in ads"
+          :key="ad.id">
+              <v-card
+    class="mx-auto"
+    max-width="400"
+  >
+    <v-img
+      class="white--text align-end"
+      height="200px"
+      :src="ad.imageSrc"
+    >
+    </v-img>
+
+   
+    <v-card-text class="text--primary">
+        <div class="pb-0">{{ad.title}}</div>
+      <div>{{ad.description}}</div>
+
+    </v-card-text>
+
+    <v-card-actions>
+        <v-spacer> </v-spacer>
+      <v-btn
+        text
+        :to="'/ad/'+ad.id"
+      >
+        Open
+      </v-btn>
+
+      <v-btn
+        raised
+        class="primary"
+      >
+        Buy
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+          </v-flex>
+      </v-layout>
+  </v-container>
+</div>
 </template>
 
 <script>
 export default {
     data(){
         return{
-
+            ads:[
+                {title:'First asd',
+                 description:'description',
+                 promo: false,
+                 imageSrc:'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+                 id:'123'
+                },
+                {title:'Second asd',
+                 description:'description',
+                 promo: true,
+                 imageSrc:'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+                 id:'1'
+                },
+                {title:'Third asd',
+                 description:'description',
+                 promo: true,
+                 imageSrc:'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+                 id:'12'
+                },
+            ]
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
+.car-link{
+    position: absolute;
+    bottom:50px;
+    left:50%;
+    background: rgba(0,0,0,.5);
+    transform:translate(-50%,0);
+    padding: 5px 15px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 
+
+}
 </style>
