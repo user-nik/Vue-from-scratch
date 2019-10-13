@@ -6,7 +6,7 @@
 
               <v-card 
               class="elevation-10 mb-3"
-              v-for="ad in ads"
+              v-for="ad in myAds"
               :key="ad.id">
                   <v-layout>
                       <v-flex xs4>
@@ -38,22 +38,9 @@
 
 <script>
 export default {
-    data(){
-        return{
-           ads:[
-               {title:'First asd',
-                 description:'description',
-                 promo: false,
-                 imageSrc:'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-                 id:'123'
-                },
-                {title:'Third asd',
-                 description:'description',
-                 promo: true,
-                 imageSrc:'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-                 id:'12'
-                },
-           ] 
+    computed:{
+        myAds(){
+            return this.$store.getters.myAds
         }
     }
 }

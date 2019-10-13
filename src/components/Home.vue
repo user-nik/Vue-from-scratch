@@ -10,7 +10,7 @@
       
       reverse-transition="fade-transition"
       transition="fade-transition"
-      v-for="ad in ads"
+      v-for="ad in promoAds"
       :key="ad.id"
       :src="ad.imageSrc"
     >
@@ -71,30 +71,14 @@
 
 <script>
 export default {
-    data(){
-        return{
-            ads:[
-                {title:'First asd',
-                 description:'description',
-                 promo: false,
-                 imageSrc:'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-                 id:'123'
-                },
-                {title:'Second asd',
-                 description:'description',
-                 promo: true,
-                 imageSrc:'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-                 id:'1'
-                },
-                {title:'Third asd',
-                 description:'description',
-                 promo: true,
-                 imageSrc:'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-                 id:'12'
-                },
-            ]
-        }
+  computed:{
+    promoAds(){
+      return this.$store.getters.promoAds
+    },
+    ads(){
+      return this.$store.getters.ads
     }
+  }
 }
 </script>
 

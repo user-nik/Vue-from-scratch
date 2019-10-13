@@ -83,9 +83,10 @@ export default {
                 const ad={
                     title: this.title,
                     description: this.description,
-                    promo: this.promo
+                    promo: this.promo,
+                    imageSrc: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1200px-Vue.js_Logo_2.svg.png'
                 }
-                console.log(ad)
+               this.$store.dispatch('createAd', ad)
             }
         }
     }
