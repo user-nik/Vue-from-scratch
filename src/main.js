@@ -13,6 +13,7 @@ new Vue({
   router,
   vuetify,
   created(){
+    //TODO remove test configs
     fire.initializeApp({
       apiKey: "AIzaSyD1kKpH7o75dEqhTZi74hKZPcMi5iQj2WY",
       authDomain: "itc-ads-d8ca8.firebaseapp.com",
@@ -28,6 +29,7 @@ new Vue({
         this.$store.dispatch('autoLogin', user)
       }
     })
+    this.$store.dispatch('fetchAds')
   },
   render: h => h(App),
 }).$mount('#app')

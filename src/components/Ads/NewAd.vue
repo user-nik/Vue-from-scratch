@@ -27,9 +27,14 @@
 
                 <v-layout row class="mb3">
                     <v-flex xs12>
-                        <v-btn class="warning"> 
+                        <v-btn class="warning" @click="triggerUpload"> 
                             Upload
                             <v-icon right dark>mdi-cloud-upload</v-icon>
+                            <input ref="fileInput" 
+                            type="file" 
+                            style="display:none"
+                            accept="image/"
+                            @change="onFileChange">
                         </v-btn>
 
                     </v-flex>
@@ -37,7 +42,7 @@
 
                 <v-layout row>
                     <v-flex xs12>
-                        <img src="" height="100">
+                        <img :src="imageSrc" v-if="imageSrc" height="100">
                     </v-flex>
                 </v-layout>
 
@@ -55,9 +60,9 @@
                         <v-spacer></v-spacer>
                         <v-btn 
                         class="success"
-                        :disabled="!valid"
+                        :disabled="!valid || ! image || loading"
                         @click="createAd"
-
+                        :loading="loading"
                         >Create Ad</v-btn>
                     </v-flex>
                 </v-layout>
@@ -73,20 +78,43 @@ export default {
             title:'',
             description:'',
             promo:false,
-            valid:false
+            valid:false,
+            image: null,
+            imageSrc: ''
+        }
+    },
+    computed: {
+        loading() {
+            return this.$store.getters.loading
         }
     },
     methods:{
+        onFileChange(event){
+            const file = event.target.files[0]
+
+            const reader = new FileReader()
+            reader.onload = e =>{
+                this.imageSrc = reader.result
+            }
+            reader.readAsDataURL(file)
+            this.image = file
+        },
+        triggerUpload(){
+            this.$refs.fileInput.click()
+        },
         createAd(){
-            if(this.$refs.form.validate()){
+            if(this.$refs.form.validate() && this.image){
                 //
                 const ad={
                     title: this.title,
                     description: this.description,
                     promo: this.promo,
-                    imageSrc: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1200px-Vue.js_Logo_2.svg.png'
+                    image: this.image
                 }
                this.$store.dispatch('createAd', ad)
+               .then(()=>{
+                   this.$router.push('/list')
+               })
             }
         }
     }
