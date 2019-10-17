@@ -3,7 +3,7 @@ import * as fb from 'firebase'
 class Ad{
     constructor(title, desc, owner, img='', promo=false,id=null){
         this.title=title, 
-        this.desc=desc, 
+        this.description=desc, 
         this.owner=owner, 
         this.imageSrc=img, 
         this.id=id,
@@ -21,6 +21,13 @@ export default{
         },
         loadAds(state, payload){
             state.ads = payload
+        },
+        updateAd(state, {title, description, id}){
+            const ad = state.ads.find(r=>{
+                return r.id===id
+            })
+            ad.title = title,
+            ad.description = description
         }
     },
     actions:{
@@ -87,6 +94,24 @@ export default{
                 commit('setLoading', false)
                 throw error
             }
+        },
+        async updateAd({commit}, {title, description, id}){
+            commit('clearError')
+            commit('setLoading', true)
+
+            try{
+                await fb.database().ref('ads').child(id).update({
+                    title, description
+                })
+                commit('updateAd', {
+                    title, description, id
+                })
+                commit('setLoading', false)
+            }catch(error){
+                commit('setError', error.message)
+                commit('setLoading', false)
+                throw error
+            }
         }
     },
     getters:{
@@ -98,8 +123,10 @@ export default{
                 return r.promo
             })
         },
-        myAds(state){
-            return state.ads
+        myAds(state, getters){
+            return state.ads.filter(r=>{
+                return r.owner === getters.user.id 
+            })
         },
         adById(state){
             return adId => {
