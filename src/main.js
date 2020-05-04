@@ -31,7 +31,7 @@ new Vue({
   created(){
     //TODO remove test configs
     fire.initializeApp({
-      apiKey: "AIzaSyD1kKpH7o75dEqhTZi74hKZPcMi5iQj2WY",
+      apiKey: "key",
       authDomain: "itc-ads-d8ca8.firebaseapp.com",
       databaseURL: "https://itc-ads-d8ca8.firebaseio.com",
       projectId: "itc-ads-d8ca8",
